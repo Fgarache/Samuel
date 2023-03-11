@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Mostrar valor</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+  <p>======================</p>
+  <p id="Rangostring"></p>
+  <p>======================</p>
+
+  <script>
+    const rutaArchivo = 'config.ini'; //esta es la ruta del archivo
+    const parametro = 'Prueba'; //este el párametro a buscar lo podes cambiar por cualquiera del archivo .ini
+
+    fetch(rutaArchivo)
+      .then(response => response.text())
+      .then(data => {
+        const lines = data.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i].trim();
+          if (line.startsWith(parametro)) {
+            const value = line.split('=')[1].trim(); //aca se captura el resultado
+            const rangoElem = document.getElementById('Rangostring');  //aca capturas a donde se va a mostrar o sea lo mism que la linea 10
+            rangoElem.textContent = value; // aca igualas la varible con el ID del documento y listo
+            break;
+          }
+        }
+      })
+      .catch(error => console.error(error));
+  </script>
+  
+</body>
+</html>
